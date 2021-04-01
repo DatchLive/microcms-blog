@@ -1,15 +1,15 @@
-import fetch from 'isomorphic-unfetch';
-import Link from 'next/link';
+import fetch from "isomorphic-unfetch";
+import Link from "next/link";
 
-const Home = ({blogs}) => {
+const Home = ({ blogs }) => {
   return (
     <div>
-      {blogs.map(blog => (
-        <React.Fragment key={blog.id}>
+      {blogs.map((blog) => (
+        <li key={blog.id}>
           <Link href="/blogs/[id]" as={`blogs/${blog.id}`}>
             <a>{blog.title}</a>
           </Link>
-        </React.Fragment>
+        </li>
       ))}
     </div>
   );
@@ -17,10 +17,10 @@ const Home = ({blogs}) => {
 
 export const getStaticProps = async () => {
   const key = {
-    headers: {'X-API-KEY': process.env.API_KEY},
+    headers: { "X-API-KEY": process.env.API_KEY },
   };
 
-  const res = await fetch(process.env.ENDPOINT + '/blogs', key);
+  const res = await fetch(process.env.ENDPOINT + "/blogs", key);
 
   const data = await res.json();
 
